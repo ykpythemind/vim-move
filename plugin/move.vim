@@ -14,6 +14,10 @@ if !exists('g:move_map_keys')
     let g:move_map_keys = 1
 endif
 
+if !exists('g:move_map_horizontal_keys')
+    let g:move_map_horizontal_keys = 1
+endif
+
 if !exists('g:move_key_modifier')
     let g:move_key_modifier = 'A'
 endif
@@ -246,11 +250,13 @@ nnoremap <silent> <Plug>MoveCharRight           :<C-u>call <SID>MoveCharRight()<
 if g:move_map_keys
     execute 'vmap' s:MoveKey('j') '<Plug>MoveBlockDown'
     execute 'vmap' s:MoveKey('k') '<Plug>MoveBlockUp'
-    execute 'vmap' s:MoveKey('h') '<Plug>MoveBlockLeft'
-    execute 'vmap' s:MoveKey('l') '<Plug>MoveBlockRight'
-
     execute 'nmap' s:MoveKey('j') '<Plug>MoveLineDown'
     execute 'nmap' s:MoveKey('k') '<Plug>MoveLineUp'
-    execute 'nmap' s:MoveKey('h') '<Plug>MoveCharLeft'
-    execute 'nmap' s:MoveKey('l') '<Plug>MoveCharRight'
+
+    if g:move_map_horizontal_keys
+      execute 'nmap' s:MoveKey('h') '<Plug>MoveCharLeft'
+      execute 'nmap' s:MoveKey('l') '<Plug>MoveCharRight'
+      execute 'vmap' s:MoveKey('h') '<Plug>MoveBlockLeft'
+      execute 'vmap' s:MoveKey('l') '<Plug>MoveBlockRight'
+    endif
 endif
